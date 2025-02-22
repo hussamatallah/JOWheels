@@ -1,0 +1,115 @@
+﻿
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Heading -->
+<h1>Users</h1>
+
+
+<!-- Button For Adding User -->
+<p>
+    <a asp-action="Create" class="btn btn-primary" style="background-color:#007A3D">Add User</a>
+</p>
+
+
+<!-- Table of Content -->
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                Name
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                UserType
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                Email
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                Password
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                PhoneNumber
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                Governorate
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                Region
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                Options
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+
+    </tbody>
+</table>
+
+
+<!-- A links For Including jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: "/api/Users",
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    $.each(data,function(k, v){  //k = key, v = value
+                        $("tbody").append(
+                                  "<tr id='tr'>" +
+                                        "<th style='text-align: center !important'>"+ v.name+ "</th>" +
+                                        "<th style='text-align: center !important'>"+ v.userType+ "</th>" +
+                                        "<th style='text-align: center !important'>"+ v.email+ "</th>" +
+                                        "<th style='text-align: center !important'>"+ v.password+ "</th>" +
+                                        "<th style='text-align: center !important'>"+ v.phoneNumber+ "</th>" +
+                                        "<th style='text-align: center !important'>"+ v.governorate+ "</th>" +
+                                        "<th style='text-align: center !important'>"+ v.region+ "</th>" +
+                                        "<th style='text-align: center !important'>"+
+                                            "<a href='/User/Edit/"+v.id+"' class='btn btn-primary' style='background-color:orange'>Edit</a>" +
+                                            "<span> | </span>" +
+                                            "<button id='btnDelete' class='btn btn-primary' data-id='"+v.id+"'>Delete</button>" +
+                                        "</th>"+
+                                  "</tr>")
+                    });
+                },
+                error: function () {
+                    alert("Something ERROR");
+                }
+            });
+
+            // $("#btnDelete").click == wrong
+
+            $(document).on("click","#btnDelete", function(){
+                var btnId = $(this);
+               if(confirm("Are you sure ?")){
+                       $.ajax({
+                        url: "/api/Users/" + btnId.attr("data-id"),
+                        method: "DELETE",
+                        dataType: "json",
+                        success: function (data) {
+                                btnId.parents("#tr").remove();
+                        },
+                        error: function () {
+                            alert("Something ERROR");
+                        }
+                    });
+               }
+
+            });
+
+        });
+    </script>
+}

@@ -1,0 +1,142 @@
+﻿@model JOWheels.Models.User
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- CSS File -->
+<link href="~/styles/inputstyle/inputstyle.css" rel="stylesheet" />
+
+
+<!-- Headings -->
+<h1 class="text-center">Edit</h1>
+<h4 class="text-center">User</h4>
+
+
+<hr />
+
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label for="inputId" class="control-label text-center">User ID</label>
+            <input asp-for="Id" readonly class="form-control" id="inputId" />
+        </div>
+
+        <div class="form-group text-center mb-3">
+            <label asp-for="Name" class="control-label text-center">Name</label>
+            <input asp-for="Name" class="form-control" id="inputName" required />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <div class="form-group text-center mb-3">
+            <label asp-for="UserType" class="control-label text-center">User Type</label>
+            <select asp-for="UserType" class="form-control" id="inputUserType" required>
+                <option value="Admin">Admin</option>
+                <option value="Dealership">Dealership</option>
+                <option value="User">User</option>
+            </select>
+            <span asp-validation-for="UserType" class="text-danger"></span>
+        </div>
+
+        <div class="form-group text-center mb-3">
+            <label asp-for="PhoneNumber" class="control-label">Phone Number</label>
+            <input asp-for="PhoneNumber" class="form-control" id="inputPhoneNumber" required />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group text-center mb-3">
+            <label asp-for="GovernorateId" class="control-label">Governorate Name</label>
+            <select asp-for="GovernorateId" class="form-control" id="inputGovernorateId" asp-items="ViewBag.GovernorateId" required></select>
+            <span asp-validation-for="GovernorateId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group text-center mb-3">
+            <label asp-for="RegionId" class="control-label">Region Name</label>
+            <select asp-for="RegionId" class="form-control" id="inputRegionId" asp-items="ViewBag.RegionId" required></select>
+            <span asp-validation-for="RegionId" class="text-danger"></span>
+        </div>
+
+
+        <div class="form-group text-center mb-3">
+            <label asp-for="Email" class="control-label">Email</label>
+            <input asp-for="Email" class="form-control" id="inputEmail" required />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group text-center mb-3">
+            <label asp-for="Password" class="control-label">Password</label>
+            <input type="password" asp-for="Password" id="inputPassword" class="form-control" required />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+
+        <div class="form-group text-center mb-3">
+            <label class="control-label">Confirm Password</label>
+            <input id="inputConfirmPassword" class="form-control" type="password" required />
+            <span class="text-danger"></span>
+        </div>
+
+        <div class="form-group text-center mb-3">
+            <input id="btnCreate" type="submit" value="Save" class="btn btn-primary mx-2" style="background-color:orange" />
+            <a asp-action="Index" class="btn btn-secondary mx-2">Back to List</a>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<!-- A links For Including jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+
+    <script>
+        $("#btnCreate").click(function () {
+            if ($("#inputPassword").val() != $("#inputConfirmPassword").val()) {
+                $("#inputConfirmPassword").after("<span style='color:red'>The password is not matched </span>");
+                return false;
+            }
+
+
+            // JSON objict
+            var data = {
+                Id: $("#inputId").val(),
+                Name: $("#inputName").val(),
+                UserType: $("#inputUserType").val(),
+                Email: $("#inputEmail").val(),
+                Password: $("#inputPassword").val(),
+                PhoneNumber: $("#inputPhoneNumber").val(),
+                GovernorateId: $("#inputGovernorateId").val(),
+                RegionId: $("#inputRegionId").val(),
+            };
+
+
+            $.ajax({
+                url: "/api/Users/",
+                method: "PUT",
+                data: JSON.stringify(data),   // convert from json to string
+                contentType: 'application/json',  // mime type  ==> النوع
+                success: function (response) {
+                    window.location.href = "/User/Index";
+                },
+                error: function (xhr, status, error) {
+                    alert(error);
+                }
+            });
+
+        });
+    </script>
+}

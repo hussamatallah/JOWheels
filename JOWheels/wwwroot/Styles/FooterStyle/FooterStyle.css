@@ -1,0 +1,36 @@
+
+::selection {
+    background-color: #FFFFFF;
+    color: #000000;
+}
+
+/* Footer Start */
+
+#footer {
+    font-family: "Orbitron", sans-serif !important;
+    width: 100%;
+    margin-top: 225px;
+    text-align: center;
+    color: #000000;
+    border-top: #000000 1px solid;
+    letter-spacing: 1.5px;
+}
+
+#footer h1 {
+    font-weight: 600;
+    padding-top: 30px;
+}
+
+footer span {
+    background-image: linear-gradient(to right, #CE1126, #007A3D);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+#footer p {
+    margin-bottom: 0px;
+    font-family: "Spectral", serif;
+}
+
+/* Footer End */

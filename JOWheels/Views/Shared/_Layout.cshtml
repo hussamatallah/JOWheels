@@ -1,0 +1,316 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="apple-touch-icon" sizes="76x76" href="~/Admin/assets/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="~/Admin/assets/img/favicon.png">
+
+    <title>
+        JOWHeels Dashboard
+    </title>
+
+    <!--     Linking the Bootstrap.css     -->
+    <link href="~/index/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!--     CSS File  ( For The Footer )     -->
+    <link href="~/styles/footerstyle/footerstyle.css" rel="stylesheet" />
+
+    <!--     Font Awesome CDN ( For Icons )     -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
+
+    <!-- CSS Files -->
+    <link id="pagestyle" href="~/Admin/assets/css/material-dashboard.css?v=3.2.0" rel="stylesheet" />
+</head>
+
+
+<body class="g-sidenav-show  bg-gray-100">
+
+
+    <!-- Aside Start -->
+    <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-radius-lg fixed-start ms-2  bg-white my-2" id="sidenav-main">
+
+        <!-- The Logo -->
+        <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-dark opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand px-4 py-3 m-0" asp-action="Index" asp-controller="User" target="_self">
+                <img src="~/Photos/JOWheels.jpg" class="navbar-brand-img" width="250" height="350" alt="main_logo">
+            </a>
+        </div>
+
+        <hr class="horizontal dark mt-0 mb-2">
+
+        <!-- Aside Icons -->
+        <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+            <ul class="navbar-nav">
+
+                @if (HttpContextAccessor.HttpContext.Session.GetString("UserType") == "Admin")
+                {
+                    <!-- Announcement Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-action="Index" asp-controller="Car">
+                            <i class="fa-solid fa-bullhorn"></i>
+                            <span class="nav-link-text ms-3">Announcements</span>
+                        </a>
+                    </li>
+
+                    <!-- Users Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/User/Index">
+                            <i class="fa-solid fa-users"></i>
+                            <span class="nav-link-text ms-3">Users</span>
+                        </a>
+                    </li>
+
+                    <!-- Governorates Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Governorate/Index">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <span class="nav-link-text ms-3">Governorates</span>
+                        </a>
+                    </li>
+
+                    <!-- Regions Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Region/Index">
+                            <i class="fa-solid fa-tree-city"></i>
+                            <span class="nav-link-text ms-3">Regions</span>
+                        </a>
+                    </li>
+
+                    <!-- Brands Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Brand/Index">
+                            <i class="fa-brands fa-font-awesome"></i>
+                            <span class="nav-link-text ms-3">Brands</span>
+                        </a>
+                    </li>
+
+                    <!-- Bodies Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Body/Index">
+                            <i class="fa-solid fa-car-side"></i>
+                            <span class="nav-link-text ms-3">Bodies</span>
+                        </a>
+                    </li>
+
+                    <!-- Transmissions Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Transmission/Index">
+                            <i class="fa-solid fa-gear"></i>
+                            <span class="nav-link-text ms-3">Transmissions</span>
+                        </a>
+                    </li>
+
+                    <!-- Fules Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Fule/Index">
+                            <i class="fa-solid fa-fire-flame-simple"></i>
+                            <span class="nav-link-text ms-3">Fuels</span>
+                        </a>
+                    </li>
+
+                    <!-- Colors Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Color/Index">
+                            <i class="fa-solid fa-paint-roller"></i>
+                            <span class="nav-link-text ms-3">Colors</span>
+                        </a>
+                    </li>
+
+                    <!-- Seats Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Seat/Index">
+                            <i class="fa-solid fa-couch"></i>
+                            <span class="nav-link-text ms-3">Seats</span>
+                        </a>
+                    </li>
+
+                    <!-- Conditions Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Condition/Index">
+                            <i class="fa-solid fa-car-battery"></i>
+                            <span class="nav-link-text ms-3">Conditions</span>
+                        </a>
+                    </li>
+
+                    <!-- Mileages Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Mileage/Index">
+                            <i class="fa-solid fa-road"></i>
+                            <span class="nav-link-text ms-3">Mileages</span>
+                        </a>
+                    </li>
+
+                    <!-- Customs Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Custom/Index">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                            <span class="nav-link-text ms-3">Customs</span>
+                        </a>
+                    </li>
+
+                    <!-- Licenses Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/License/Index">
+                            <i class="fa-solid fa-money-check"></i>
+                            <span class="nav-link-text ms-3">Licenses</span>
+                        </a>
+                    </li>
+
+                    <!-- Insurances Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Insurance/Index">
+                            <i class="fa-solid fa-car-burst"></i>
+                            <span class="nav-link-text ms-3">Insurances</span>
+                        </a>
+                    </li>
+
+                    <!-- Payments Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Payment/Index">
+                            <i class="fa-solid fa-money-bill"></i>
+                            <span class="nav-link-text ms-3">Payments</span>
+                        </a>
+                    </li>
+
+                    <!-- Years Tap -->
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="/Year/Index">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <span class="nav-link-text ms-3">Years</span>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+        </div>
+
+        <!-- Admin Controls -->
+        <div class="sidenav-footer position-absolute w-100 bottom-0">
+            <div class="mx-3">
+                <a class="btn btn-outline-dark mt-4 w-100" asp-action="Index" asp-controller="User" type="button">Advertisements page</a>
+                <a class="btn bg-gradient-danger w-100" asp-action="Logout" asp-controller="Account" type="button">Logout</a>
+            </div>
+        </div>
+
+    </aside>
+    <!-- Aside End -->
+
+
+    <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+
+        <!-- Navbar Start -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-3 shadow-none border-radius-xl border-bottom border-3" id="navbarBlur" data-scroll="true">
+            <div class="container-fluid py-1 px-3">
+
+                <!-- The Navbar on The Top of The Page -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm">
+                            <a class="opacity-5 text-dark text-decoration-underline" asp-action="Index" asp-controller="User">Dashboard</a>
+                        </li>
+                    </ol>
+                </nav>
+
+                <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+
+                    <!-- Search Bar in The Navbar on The Top of The Page -->
+                    <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                        <div class="input-group input-group-outline">
+                            <label class="form-label">Type here...</label>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+
+
+                    <ul class="navbar-nav d-flex align-items-center  justify-content-end">
+
+                        <!-- Toggler Button -->
+                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                            <a asp-action="Index" asp-controller="User" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                                <div class="sidenav-toggler-inner">
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                    <i class="sidenav-toggler-line"></i>
+                                </div>
+                            </a>
+                        </li>
+
+
+                        @if (HttpContextAccessor.HttpContext.Session.GetString("UserName") != null)
+                        {
+                            <!-- Admin Name -->
+                            <li class="nav-item d-flex align-items-center">
+                                <a href="#" class="nav-link text-body font-weight-bold px-0">
+                                    <span class="d-sm-inline d-none">
+                                        @HttpContextAccessor.HttpContext.Session.GetString("UserName")
+                                    </span>
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+        <!-- Navbar End -->
+        <!-- The Content of The Page Start -->
+        <div class="container-fluid py-2 d-flex flex-column min-vh-100">
+
+            <!-- RenderBody -->
+            <!-- dispaly the table of the chosen tab from the (Aside bar) -->
+            <div class="row flex-grow-0">
+                @RenderBody()
+            </div>
+
+            <!-- Footer -->
+            <footer id="footer">
+                <h1 style="font-family:'Orbitron', sans-serif !important;"><span>JO</span>Wheels</h1>
+                <div class="icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <p>The final project</p>
+                <p>Designed by :</p>
+                <p>Ghaith M Al-Khateeb || Omar Q Qasem || Husam R Atallah</p>
+            </footer>
+
+        </div>
+        <!-- The Content of The Page End -->
+
+    </main>
+
+
+    <!--   Core JS Files   -->
+    <script src="~/Admin/assets/js/core/popper.min.js"></script>
+    <script src="~/Admin/assets/js/core/bootstrap.min.js"></script>
+    <script src="~/Admin/assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="~/Admin/assets/js/plugins/smooth-scrollbar.min.js"></script>
+
+
+    <!-- For Scrollbar in The ( Sidenav ) -->
+    <script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+
+
+    <!-- For Sidenav -->
+    <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+    <script src="~/Admin/assets/js/material-dashboard.min.js?v=3.2.0"></script>
+
+    @RenderSection("Scripts", false)
+</body>
+
+</html>

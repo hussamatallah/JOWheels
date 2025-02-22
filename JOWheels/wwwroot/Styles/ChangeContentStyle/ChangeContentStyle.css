@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+
+/* Logo  Customization */
+#logo span {
+    background-image: linear-gradient(to right, #CE1126, #007A3D);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+#hero {
+    color: #FFFFFF;
+    font-family: "Orbitron", sans-serif;
+}
+
+    /* Change Content Background */
+    #hero .container .type {
+        background-color: #000000ce;
+        padding: 8px;
+        border-radius: 15px;
+    }
+
+    #hero .container,
+    .type {
+        font-size: 60px;
+        font-weight: 400;
+    }
+
+.change-content::before {
+    font-weight: 800;
+    content: ' ';
+    color: #007A3D;
+    text-transform: uppercase;
+    background-image: linear-gradient(to right, #CE1126, #007A3D);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: changetext 15s infinite linear;
+}
+
+@keyframes changetext {
+    0% {
+        content: 'SUV '
+    }
+
+    20% {
+        content: 'Pick-Up '
+    }
+
+    40% {
+        content: 'Sedan '
+    }
+
+    60% {
+        content: 'Sport '
+    }
+
+    80% {
+        content: 'Hatchback '
+    }
+
+    100% {
+        content: 'Crossover '
+    }
+}

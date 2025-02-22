@@ -1,0 +1,153 @@
+﻿@model IEnumerable<JOWheels.Models.Car>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Heading -->
+<h1>Announcements</h1>
+
+
+
+<!-- Button For Adding Announcement -->
+<p>
+    <a asp-action="Create" class="btn btn-primary" style="background-color:#007A3D">Add Announcement</a>
+</p>
+
+
+<!-- Table of Content -->
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.PlateNumber)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Entity)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Body)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Transmission)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Fule)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Seat)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Condition)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Mileage)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Custom)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.License)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Insurance)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Payment)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                @Html.DisplayNameFor(model => model.Year)
+            </th>
+            <th scope="col" style="color: white !important; background-color: #343a40 !important; text-align: center !important;">
+                Options
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Title)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Price)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.PlateNumber)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Description)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Image)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Entity.Name)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Brand.Name)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Body.Name)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Transmission.Type)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Fule.Id)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Color.Name)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Seat.Number)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Condition.State)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Mileage.Mile)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Custom.State)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.License.State)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Insurance.Type)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Payment.Type)
+            </th>
+            <th style="text-align: center !important">
+                @Html.DisplayFor(modelItem => item.Year.Date)
+            </th>
+            <th style="text-align: center !important">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary" style="background-color:orange">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class='btn btn-primary'>Delete</a>
+            </th>
+        </tr>
+}
+    </tbody>
+</table>

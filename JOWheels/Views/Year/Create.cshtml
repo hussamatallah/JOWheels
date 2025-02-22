@@ -1,0 +1,64 @@
+﻿@model JOWheels.Models.Year
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- CSS File -->
+<link href="~/styles/inputstyle/inputstyle.css" rel="stylesheet" />
+
+
+<!-- Heading -->
+<h1 class="text-center">Create</h1>
+
+
+<hr />
+
+
+<!-- Center the form -->
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Create">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group text-center mb-3">
+                <label asp-for="Date" class="control-label">Model Year</label>
+                <input asp-for="Date" class="form-control" id="inp" required />
+                <span id="Date" class="text-danger"></span>
+            </div>
+
+            <div class="form-group d-flex justify-content-center mb-3">
+                <input type="submit" value="Create" class="btn btn-primary mx-2" style="background-color:#007A3D" />
+                <a asp-action="Index" class="btn btn-secondary mx-2">Back to List</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+
+<!-- A links For Including jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("form").submit(function (event) {
+                $("span.text-danger").text("");     // Clear any previous error messages
+
+                var dateInput = $("#inp").val();
+
+                if (!/^\d{4}$/.test(dateInput)) {
+                    event.preventDefault();     // Prevent form submission
+
+                    $("#Date").text("Please enter a valid 4-digit year (numeric only).");
+                }
+            });
+        });
+
+    </script>
+}

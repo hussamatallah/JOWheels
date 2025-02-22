@@ -1,0 +1,72 @@
+﻿@model JOWheels.Models.Seat
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- CSS File -->
+<link href="~/styles/inputstyle/inputstyle.css" rel="stylesheet" />
+
+
+<!-- Headings -->
+<h1 class="text-center mb-4">Edit</h1>
+<h4 class="text-center mb-4">Seat</h4>
+
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Edit" id="seatForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group text-center mb-3">
+                <label asp-for="Number" class="control-label">Number of Seats</label>
+                <input asp-for="Number" class="form-control mx-auto" id="inp" required />
+                <span id="NumberError" class="text-danger"></span>
+            </div>
+
+            <div class="form-group d-flex justify-content-center mb-3">
+                <input type="submit" value="Save" class="btn btn-primary mx-2" style="background-color:orange" />
+                <a asp-action="Index" class="btn btn-secondary mx-2">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- A links For Including jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#seatForm").submit(function (event) {
+                var isValid = true;
+                var numberInput = $("#inp").val();
+
+                if (numberInput.trim() === "") {
+                    // Show the error message if input is empty
+                    $("#NumberError").text("The value must be numeric and cann't be NULL");
+                    isValid = false;
+                }
+                // Check if the input is a valid number between 0 and 99 and contains at most two digits
+                else if (!/^\d{1,2}$/.test(numberInput) || parseInt(numberInput) < 0 || parseInt(numberInput) > 99) {
+                    $("#NumberError").text("Please enter a number between 0 and 99.");
+                    isValid = false;
+                } else {
+                    // Clear the error message if input is valid
+                    $("#NumberError").text("");
+                }
+
+                if (!isValid) {
+                    event.preventDefault(); // Prevent the form from being submitted
+                }
+            });
+        });
+    </script>
+}

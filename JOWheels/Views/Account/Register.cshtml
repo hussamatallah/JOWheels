@@ -1,0 +1,189 @@
+﻿@model JOWheels.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register</title>
+
+	<link href="~/index/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+
+	<link href="~/styles/registrationstyle/registerstyle/registerstyle.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="register-form">
+        <h2>Register</h2>
+        <form method="post" id="registerForm">
+            
+            <!-- Name Input -->
+            <div class="form-group">
+                <label asp-for="Name">User Name</label>
+                <input asp-for="Name" type="text" id="Name" class="form-control" placeholder="Enter your name" required />
+                <span id="nameerror"></span>
+            </div>
+
+            <!-- UseType Field -->
+            <div class="row" style="display:none;">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label asp-for="UserType" class="form-label">Name</label>
+                        <select asp-for="UserType" class="form-control">
+                            <option value="User">User</option>
+                        </select>
+                        <span asp-validation-for="UserType" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Governorate Dropdown -->
+            <div class="form-group">
+                <label asp-for="GovernorateId">City</label>
+                <select asp-for="GovernorateId" class="login__input" asp-items="ViewBag.GovernorateId" required>
+                    <option value="" selected>-- Select City --</option>
+                </select>
+            </div>
+
+            <!-- Region Dropdown -->
+            <div class="form-group">
+                <label asp-for="RegionId">Region</label>
+                <select asp-for="RegionId" class="login__input" asp-items="ViewBag.RegionId" required>
+                    <option value="" selected>-- Select Region --</option>
+                </select>
+            </div>
+
+            <!-- Phone Input -->
+            <div class="form-group">
+                <label asp-for="PhoneNumber">Phone Number</label>
+                <input asp-for="PhoneNumber" type="tel" id="PhoneNumber" class="form-control" placeholder="Enter your phone number" required />
+                <span id="phoneerror" class="text-danger"></span>
+            </div>
+
+            <!-- Email Input -->
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" type="email" id="Email" class="form-control" placeholder="Enter your email" required />
+            </div>
+
+
+            <!-- Password Input -->
+            <div class="form-group">
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" type="password" id="Password" class="form-control" placeholder="Enter your password" required />
+                <span id="passerror" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label>Confirm Password</label>
+                <input id="confirmpass" type="password" class="form-control" placeholder="Confirm Password" required>
+                <span id="confirmpasserror" class="text-danger"></span>
+            </div>
+
+
+            <!-- Submit Button -->
+            <div class="form-group mb-3">
+                <input type="submit" value="Register" class="form-control" />
+            </div>
+
+
+            <!-- Login Link -->
+            <div class="login-link">
+                <p>
+                    Already have an account ? <a asp-action="Login" asp-controller="Account">Log in</a>
+                </p>
+            </div>
+        </form>
+
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#RegionId").prop("disabled", true);
+            $("#GovernorateId").change(function () {
+                $.ajax({
+                    url: "/api/Users/" + $(this).val(),
+                    method: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#RegionId").prop("disabled", false);
+                        $("#RegionId option").remove();
+                        $("#RegionId").append("<option value='' selected>-- Select Region --</option>");
+                        $.each(data, function (k, v) {
+                            $("#RegionId").append("<option value='" + v.id + "'>" + v.name + "</option>");
+                        });
+                    }
+                });
+            });
+        });
+
+        $(document).ready(function () {
+
+            // Form validation function
+            $('#registerForm').on('submit', function (event) {
+                var isValid = true;
+
+                // Clear all previous error messages
+                $('#nameerror').text('');
+                $('#phoneerror').text('');
+                $('#passerror').text('');
+                $('#confirmpasserror').text('');
+
+                // Name Validation (between 3 and 20 characters)
+                var name = $('#Name').val().trim();
+                if (name.length < 3 || name.length > 20) {
+                    $('#nameerror').text('Name must be between 3 and 20 characters.');
+                    isValid = false;
+                }
+
+                // Phone Number Validation
+                var phoneNumber = $('#PhoneNumber').val().trim();
+                var phoneRegex = /^07\d{8}$/;
+                if (!phoneRegex.test(phoneNumber)) {
+                    $('#phoneerror').text('Phone number must start with "07" and be exactly 10 digits with no spaces.');
+                    isValid = false;
+                }
+
+                // Password Validation (at least 6 characters, 1 uppercase, 1 number, 1 symbol)
+                var password = $('#Password').val().trim();
+                var passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-z\d\W_]{6,}$/;
+                if (!passwordRegex.test(password)) {
+                    $('#passerror').html('Password must be at least 6 characters.<br />' +
+                        'Contain at least one uppercase letter.<br />' +
+                        'Contain at least one number.<br />' +
+                        'Contain at least one symbol.');
+                    isValid = false;
+                }
+
+                // Confirm Password Validation
+                var confirmPassword = $('#confirmpass').val().trim();
+                if (confirmPassword !== password) {
+                    $('#confirmpasserror').text('Passwords do not match.');
+                    isValid = false;
+                }
+
+                // Prevent form submission
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+
+        });
+
+
+    </script>
+
+</body>
+
+</html>

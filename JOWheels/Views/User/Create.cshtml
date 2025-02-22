@@ -1,0 +1,155 @@
+﻿@model JOWheels.Models.User
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- CSS File -->
+<link href="~/styles/inputstyle/inputstyle.css" rel="stylesheet" />
+
+
+<h1 class="text-center">Add User</h1>
+
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- User Name -->
+            <div class="form-group text-center mb-3">
+                <label asp-for="Name" class="control-label">User Name</label>
+                <input asp-for="Name" class="form-control" id="inpName" required />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <!-- User Type -->
+            <div class="form-group text-center mb-3">
+                <label asp-for="UserType" class="control-label">User Type</label>
+                <select id="inpUserType" asp-for="UserType" class="form-control" required>
+                    <option value="Admin">Admin</option>
+                    <option value="Dealership">Dealership</option>
+                    <option value="User">User</option>
+                </select>
+                <span asp-validation-for="UserType" class="text-danger"></span>
+            </div>
+
+            <!-- Email -->
+            <div class="form-group text-center mb-3">
+                <label asp-for="Email" class="control-label">Email</label>
+                <input asp-for="Email" class="form-control" id="inpEmail" required />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group text-center mb-3">
+                <label asp-for="Password" class="control-label">Password</label>
+                <input asp-for="Password" id="inpPassword" class="form-control" required />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <!-- Confirm Password -->
+            <div class="form-group text-center mb-3">
+                <label class="control-label">Confirm Password</label>
+                <input id="confirmpass" class="form-control" type="password" required />
+                <span class="text-danger"></span>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group text-center mb-3">
+                <label asp-for="PhoneNumber" class="control-label">Phone Number</label>
+                <input asp-for="PhoneNumber" class="form-control" id="inpPhoneNumber" required />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <!-- Governorate -->
+            <div class="form-group text-center mb-3">
+                <label asp-for="GovernorateId" class="control-label">Governorate Name</label>
+                <select id="inpGovernorateId" asp-for="GovernorateId" class="form-control" asp-items="ViewBag.GovernorateId" required></select>
+            </div>
+
+            <!-- Region -->
+            <div class="form-group text-center mb-3">
+                <label asp-for="RegionId" class="control-label">Region Name</label>
+                <select id="inpRegionId" asp-for="RegionId" class="form-control" asp-items="ViewBag.RegionId" required disabled></select>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group d-flex justify-content-center mb-3">
+                <input id="btnCreate" type="submit" value="Create" class="btn btn-primary mx-2" style="background-color:#007A3D" />
+                <a asp-action="Index" class="btn btn-secondary mx-2">Back to List</a>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#inpRegionId").prop("disabled", true);
+
+        $("#inpGovernorateId").change(function () {
+            var governorateId = $(this).val();
+            if (governorateId) {
+                $.ajax({
+                    url: "/api/Users/" + governorateId,
+                    method: "GET",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#inpRegionId").prop("disabled", false);
+                        $("#inpRegionId").empty().append("<option value='' selected>-- Select Region --</option>");
+                        $.each(data, function (k, v) {
+                            $("#inpRegionId").append("<option value='" + v.id + "'>" + v.name + "</option>");
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error fetching regions: " + error);
+                    }
+                });
+            } else {
+                $("#inpRegionId").prop("disabled", true).empty();
+            }
+        });
+    });
+
+    $("#btnCreate").click(function (event) {
+        // Prevent form submission
+        event.preventDefault();
+
+        $(".text-danger").remove();
+
+        // Password confirmation 
+        if ($("#inpPassword").val() != $("#confirmpass").val()) {
+            $("#confirmpass").after("<span class='text-danger'>The password does not match</span>");
+            return false;
+        }
+
+        var data = {
+            Name: $("#inpName").val(),
+            UserType: $("#inpUserType").val(),
+            Email: $("#inpEmail").val(),
+            Password: $("#inpPassword").val(),
+            PhoneNumber: $("#inpPhoneNumber").val(),
+            GovernorateId: $("#inpGovernorateId").val(),
+            RegionId: $("#inpRegionId").val(),
+        };
+
+        $.ajax({
+            url: '/api/Users/',
+            method: "POST",
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            success: function (response) {
+                window.location.href = "/User/Index";
+            },
+            error: function (xhr, status, error) {
+                alert("Error: " + error);
+            }
+        });
+    });
+</script>

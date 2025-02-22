@@ -1,0 +1,58 @@
+﻿@model JOWheels.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Register</title>
+
+    <link href="~/index/bootstrap/bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet" />
+
+	<link href="~/styles/registrationstyle/loginstyle/loginstyle.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="login-form">
+        <h2>Login</h2>
+        <form method="post">
+
+            <!-- Email Input -->
+            <div class="form-group">
+                <label asp-for="Email">Email</label>
+                <input asp-for="Email" type="email" id="Email" class="form-control" placeholder="Enter your email" required />
+            </div>
+
+            <!-- Password Input -->
+            <div class="form-group">
+                <label asp-for="Password">Password</label>
+                <input asp-for="Password" type="password" id="Password" class="form-control" placeholder="Enter your password" required />
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group mb-3">
+                <input type="submit" value="Login" class="form-control" />
+            </div>
+
+
+            <!-- Login Link -->
+            <div class="login-link">
+                <p>
+                    Don't have an account ? <a asp-action="Register" asp-controller="Account">Register</a>
+                </p>
+            </div>
+        </form>
+
+    </div>
+
+</body>
+
+</html>

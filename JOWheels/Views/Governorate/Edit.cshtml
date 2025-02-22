@@ -1,0 +1,43 @@
+﻿@model JOWheels.Models.Governorate
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- CSS File -->
+<link href="~/styles/inputstyle/inputstyle.css" rel="stylesheet" />
+
+
+<!-- Headings -->
+<h1 class="text-center mb-4">Edit</h1>
+<h4 class="text-center mb-4">Governorate</h4>
+
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group text-center mb-3">
+                <label asp-for="Name" class="control-label mb-2"> Governorate Name</label>
+                <input asp-for="Name" class="form-control mx-auto" id="inp" required />
+                <span id="Name" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center mb-3">
+                <input type="submit" value="Save" class="btn btn-primary mx-2" style="background-color:orange" />
+                <a asp-action="Index" class="btn btn-secondary mx-2">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

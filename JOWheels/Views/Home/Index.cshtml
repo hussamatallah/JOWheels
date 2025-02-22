@@ -1,0 +1,128 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+<style>
+    #imgBody {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        background-size: cover;
+    }
+
+    #imgBrand {
+        width: 100%;
+        height: 50px;
+        object-fit: cover;
+        background-size: cover;
+        transition: transform 0.3s;
+    }
+
+        #imgBrand:hover {
+            transform: scale(1.5)
+        }
+</style>
+
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="portfolio section">
+
+
+    <!-- Headings -->
+    <div class="container section-title" data-aos="fade-up">
+        <h2>All Brands</h2>
+        <p>FIND YOUR CAR</p>
+    </div>
+
+
+    <div class="container">
+
+        <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+            <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+
+                <li data-filter="*" class="filter-active">
+                    <a asp-action="Index" asp-route-brandId=""
+                       calss="@(ViewBag.BrandId == null ? "active" : "")">
+                        All
+                    </a>
+                </li>
+
+                @foreach (var brand in ViewBag.GroupedData)
+                {
+                    <li data-filter=".filter-@brand.BrandId">
+                        <a asp-action="Index" asp-route-brandId="@brand.BrandId"
+                           calss="@(ViewBag.BrandId == brand.BrandId ? "active" : "")">
+                            <img id="imgBrand" src="~/Photos/Brands/@brand.Image" class="img-fluid" alt="@brand.BrandName">
+                        </a>
+                    </li>
+                }
+
+            </ul>
+            <!-- End Portfolio Filters -->
+
+            <hr />
+
+            <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+                @foreach (var body in ViewBag.Bodies)
+                {
+                    <div class="col-lg-4 col-md-6 portfolio-item isotope-item">
+                        <div class="portfolio-content h-100">
+
+                            <img id="imgBody" src="~/Photos/Bodies/@body.Image" class="img-fluid" alt="@body.BodyName">
+
+                            <div class="portfolio-info">
+                                <h4>@body.BodyName</h4>
+                                <p>See more of @body.BodyName</p>
+                                <a asp-action="Cars" asp-controller="Home" asp-route-id="@body.BodyId" title="Announcements"
+                                   class="details-link" target="_blank"><i class="bi bi-link-45deg"></i></a>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+            <!-- End Portfolio Container -->
+
+
+            <!--pagenation Links-->
+            <div class="pagenation mt-4 d-flex justify-content-center">
+
+                <!-- Previous page -->
+                @if (ViewBag.PageNumber > 1)
+                {
+                    <a asp-action="Index" asp-route-brandId="@ViewBag.BrandId"
+                       asp-route-page="@ViewBag.PageNumber - 1"
+                       class="btn btn-outline-primary mx-1">
+                        Previous
+                    </a>
+                }
+
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <a asp-action="Index" asp-route-brandId="@ViewBag.BrandId"
+                       asp-route-page="@i"
+                       class="btn @(i == ViewBag.PageNumber ? "btn-primary": "btn-outline-primary") mx-1">
+                        @i
+                    </a>
+                }
+
+                @if (ViewBag.PageNumber < ViewBag.TotalPages)
+                {
+                    <a asp-action="Index" asp-route-brandId="@ViewBag.BrandId"
+                       asp-route-page="@ViewBag.PageNumber + 1"
+                       class="btn btn-outline-primary mx-1">
+                        Next
+                    </a>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+<!-- /Portfolio Section -->

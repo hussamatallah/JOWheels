@@ -1,0 +1,66 @@
+﻿@model JOWheels.Models.Custom
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- CSS File -->
+<link href="~/styles/inputstyle/inputstyle.css" rel="stylesheet" />
+
+
+<!-- Headings -->
+<h1 class="text-center mb-4">Edit</h1>
+<h4 class="text-center mb-4">Custom</h4>
+
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form asp-action="Edit" id="customForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <input type="hidden" asp-for="Id" />
+
+            <div class="form-group text-center mb-3">
+                <label asp-for="State" class="control-label"></label>
+                <input asp-for="State" class="form-control mx-auto" id="inp" required />
+                <span id="StateError" class="text-danger"></span>
+            </div>
+
+            <div class="form-group d-flex justify-content-center mb-3">
+                <input type="submit" value="Save" class="btn btn-primary mx-2" style="background-color:orange" />
+                <a asp-action="Index" class="btn btn-secondary mx-2">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- A links For Including jQuery -->
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#customForm").submit(function (event) {
+                var isValid = true;
+                var stateInput = $("#inp").val();
+
+                if (stateInput === "") {
+                    $("#StateError").text("Can't be NUll");
+                    isValid = false;
+                } else {
+                    // Clear the error message if the input is valid
+                    $("#StateError").text("");
+                }
+
+                if (!isValid) {
+                    event.preventDefault(); // Stops the form submission
+                }
+            });
+        });
+    </script>
+}

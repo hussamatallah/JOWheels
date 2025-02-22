@@ -1,0 +1,44 @@
+/* Common styles for all input fields */
+input.form-control, select.form-control {
+    border: 1px solid black;
+    background-color: white;
+    padding: 8px;
+    width: 100%;
+}
+
+/* Additional styles for specific fields */
+#inputName, #inputUserType, #inputEmail, #inputPassword, #inputPhoneNumber, #inputGovernorateId, #inputRegionId, #inputConfirmPassword, #inputId, #inp {
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Optional: Focus effect for inputs */
+input.form-control:focus, select.form-control:focus, textarea.form-control:focus {
+    outline: none;
+    border-color: #007A3D;
+    box-shadow: 0 0 5px rgba(0, 122, 61, 0.5);
+    border-radius: 10px;
+    text-align: center;
+}
+
+/* Label style for center alignment */
+label.control-label {
+    text-align: center;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* Custom margin between rows */
+.row {
+    margin-bottom: 20px;
+}
+
+/* Center the button and link on the last row */
+.text-center {
+    text-align: center;
+}
+
+/* Style the button and link */
+button.btn #btnCreate, a.btn #back {
+    margin: 0 10px;
+}
